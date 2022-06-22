@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  node-app:
+    build: .
+    image: node-app
+    environment:
+      - DATABASE=mongodb://mongodb:27017/cdtt2
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+    # volumes:
+    #   - .:/usr/src/node-app
+    networks:
+      - node-network
+
+  mongodb:
+    image: mongo:4.2.1-bionic
+    ports:
+      - "27017:27017"
+    volumes:
+      - dbdata:/data/db
+    networks:
+      - node-network
+
+volumes:
+  dbdata:
+
+networks:
+  node-network:
+    driver: bridge
