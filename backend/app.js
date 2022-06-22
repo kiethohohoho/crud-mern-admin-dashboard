@@ -4,6 +4,7 @@ const MongoStore = require("connect-mongo");
 const path = require("path");
 const bodyParser = require("body-parser");
 const promisify = require("es6-promisify");
+const cors = require("cors");
 
 const apiRouter = require("./routes/api");
 const authApiRouter = require("./routes/authApi");
@@ -70,6 +71,8 @@ app.use("/api", authApiRouter);
 
 // for development & production don't use this line app.use("/api", apiRouter); , this is just demo login contoller
 app.use("/api", apiRouter);
+
+app.use(cors());
 
 //uncomment line below // app.use("/api", isValidToken, apiRouter);
 // app.use("/api", isValidToken, apiRouter);
